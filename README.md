@@ -3,18 +3,16 @@ NodeJS Realtime Chat
 
 This is a simple realtime chat built on NodeJS and powered by <a href="https://github.com/socketio/socket.io">Socket.IO</a>
 
-![Chat Preview](https://i.imgur.com/z1ECTmL.png)
 
 ---
 
 ## Features
-- Emoji support
-- Private messaging
+- Real Time Chat Messaging
 
 ---
 
 ## Setup
-Clone this repository and start the server by running `node start`
+Clone this repository and start the server by running `npm start`
 
 ---
 
