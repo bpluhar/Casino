@@ -21,4 +21,4 @@ Clone this repository and start the server by running `node start`
 ## License
 >You can check out the full license [here](https://github.com/bpluhar/NodeJS-Realtime-Chat/blob/main/LICENSE)
 
-This project is licensed under the terms of the **MIT** license.
+This project is licensed under the terms of the **GPL-3.0** license.
