@@ -25,6 +25,7 @@
   "homepage": "https://github.com/bpluhar/NodeJS-Realtime-Chat#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "mysql": "^2.18.1",
     "socket.io": "^4.7.2"
   }
 }

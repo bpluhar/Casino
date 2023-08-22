@@ -5,6 +5,27 @@ const socketIO = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+const mysql = require('mysql');
+
+const conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'chat_log'
+});
+
+function ifThrow(error) {
+  if (error) throw error;
+};
+
+function loadLast(res) {
+    let x = 0;
+
+    while (x < res.length) {
+      io.emit('chat message', res[x].chat_msg);
+      x++;
+    }
+}
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html'); 
@@ -14,8 +35,34 @@ io.on('connection', (socket) => {
 
   console.log('A user connected');
 
+  // Pull past messages
+
+  
+
+  conn.query("SELECT * FROM `chat_history` ORDER BY `chat_id` ASC LIMIT 0, 10", function(error, results, fields) {
+    ifThrow(error);
+    console.log(results);
+    if (results.length == 0) return;
+    loadLast(results);
+  });
+
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+
+    if (msg === "testAdd") {
+      let x = 0;
+
+      while (x < 101) {
+        conn.query("INSERT INTO `chat_history` (`chat_id`, `timestamp`, `chat_msg`, `chat_author`) VALUES (NULL, current_timestamp(), 'test message', '?')", [x], function(error, results, fields) {
+          ifThrow(error);
+          console.log("INSERT Entry!");
+        });
+        x++;
+      };     
+    }
+    
+
+
+    io.emit('chat message', msg); // Reflect back to other clients
   });
 
   socket.on('disconnect', () => {
