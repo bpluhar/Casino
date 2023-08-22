@@ -22,7 +22,7 @@ function loadLast(res) {
     let x = 0;
 
     while (x < res.length) {
-      io.emit('chat message', res[x].chat_msg);
+      io.emit('chat message', res[x].chat_msg); // Respond with next row in line
       x++;
     }
 }
