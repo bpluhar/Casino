@@ -31,6 +31,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html'); 
 });
 
+app.get('/chat', (req, res) => {
+  res.sendFile(__dirname + '/chat.html'); 
+});
+
 io.on('connection', (socket) => {
 
   console.log('A user connected');
@@ -41,23 +45,30 @@ io.on('connection', (socket) => {
 
   conn.query("SELECT * FROM `chat_history` ORDER BY `chat_id` ASC LIMIT 0, 10", function(error, results, fields) {
     ifThrow(error);
-    console.log(results);
+    //console.log(results);
     if (results.length == 0) return;
     loadLast(results);
   });
 
   socket.on('chat message', (msg) => {
 
+    if (msg === "showTest") {
+
+    }
+
     if (msg === "testAdd") {
       let x = 0;
 
-      while (x < 101) {
+      while (x < 1001) {
         conn.query("INSERT INTO `chat_history` (`chat_id`, `timestamp`, `chat_msg`, `chat_author`) VALUES (NULL, current_timestamp(), 'test message', '?')", [x], function(error, results, fields) {
           ifThrow(error);
           console.log("INSERT Entry!");
         });
         x++;
-      };     
+      };
+
+      console.log("added 1000");
+
     }
     
 
