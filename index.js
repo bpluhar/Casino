@@ -40,16 +40,19 @@ function clientSendFile(res, filename) {
 }
 
 function getRandomInt(min, max) {       
-    // Create byte array and fill with 1 random number
-    var byteArray = new Uint8Array(1);
-    crypto.getRandomValues(byteArray);
+  var byteArray = new Uint8Array(1);
+  crypto.getRandomValues(byteArray);
+  var range = max - min + 1;
+  var max_range = 256;
+  if (byteArray[0] >= Math.floor(max_range / range) * range)
+    return getRandomInt(min, max);
+  return min + (byteArray[0] % range);
+}
 
-    var range = max - min + 1;
-    var max_range = 256;
-    if (byteArray[0] >= Math.floor(max_range / range) * range)
-      return getRandomInt(min, max);
-    return min + (byteArray[0] % range);
-  }
+const ranks     = ['Baby', 'Novice', 'Advanced', 'Pro', 'Insane', 'God'];
+const names     = ['John', 'Mary', 'Peter', 'Susan', 'David', 'Elizabeth', 'Michael', 'Sarah', 'Richard', 'Jennifer'];
+const greetings = ["Hello", "Hi", "Howdy", "Greetings", "Salutations", "Aloha", "Konnichiwa", "Buenos días", "Guten Tag", "Hola"];
+
 
 io.on('connection', (socket) => {
 
@@ -80,16 +83,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on('debug', () => {
-    let start = Date.now();
 
-    count = 10001;
-
-    for (let x = 0; x < count; x++) {
-      //let rng = getRandomInt(0, 100);
-      io.emit('debug', x);
-    };
-    let delta = Date.now() - start;
-    terminal(`Took `).green(delta)('ms to generate and emit ').green(count - 1)(' numbers to all ').green(io.engine.clientsCount)(' sockets.\n');
+    for (let x = 0; x <= 100; x++) {
+      let data = [ranks[getRandomInt(0, 5)], names[getRandomInt(0, 9)], greetings[getRandomInt(0, 9)]]
+      io.emit('debug', data)
+    }
+    
   })
 
   socket.on('disconnect', () => {

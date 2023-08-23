@@ -27,7 +27,7 @@
 
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <a class="navbar-item" href="/home">
         <img src="https://i.imgur.com/V2JFAbG.png" width="100" height="120">
       </a>
 
@@ -50,7 +50,7 @@
 
         <div class="level-item">
 
-          <button class="button is-info" id="walletButton">Wallet</button>
+          <button class="button is-info" id="debugBetTrackerButton">Test Chat</button>
 
         </div>
 
@@ -106,7 +106,7 @@
 
             <!-- NavBar Block -->
             <div class="block">
-              <div class="notification is-warning is-light"> Primar lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.</div>
+              <div class="notification is-warning is-light"> When using the <strong>Test Chat</strong> button in the navbar, be sure to test with multiple tabs open on this same page to see the webkit in action! The button currently creates <strong>100</strong> different messages and sends them in <strong>100</strong> seperate io.emit() calls. The rng for chat generation is <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues">available here</a>.</div>
             </div>
 
             <!-- Top Stats Block -->
@@ -127,18 +127,18 @@
                       <tbody>
                         <tr>
                           <th>1</th>
-                          <td><a href="" title="Leicester City F.C.">Amulite</a>
+                          <td><a>Amulite</a>
                           </td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>2</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td><a>Arsenal</a></td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>3</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td><a>Tottenham Hotspur</a></td>
                           <td>38</td>
                         </tr>
                       </tbody>
@@ -161,18 +161,18 @@
                       <tbody>
                         <tr>
                           <th>1</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          <td><a>Amulite</a>
                           </td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>2</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td><a>Arsenal</a></td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>3</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td><a>Tottenham Hotspur</a></td>
                           <td>38</td>
                         </tr>
                       </tbody>
@@ -195,18 +195,18 @@
                       <tbody>
                         <tr>
                           <th>1</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          <td><a>Amulite</a>
                           </td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>2</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td><a>Arsenal</a></td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>3</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td><a>Tottenham Hotspur</a></td>
                           <td>38</td>
                         </tr>
                       </tbody>
@@ -229,18 +229,18 @@
                       <tbody>
                         <tr>
                           <th>1</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          <td><a>Amulite</a>
                           </td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>2</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td><a>Arsenal</a></td>
                           <td>38</td>
                         </tr>
                         <tr>
                           <th>3</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td><a>Tottenham Hotspur</a></td>
                           <td>38</td>
                         </tr>
                       </tbody>
@@ -250,52 +250,34 @@
               </nav>
             </div>
             <hr />
+
             <!-- Chat Box Block -->
-            <div class="block" style="height: calc(100% - 360px)">
-              <div class="box" style="height: 100%;">
+            <div class="block" style="height: calc(100% - 355px)">
 
-                <div class="block" style="height: calc(100% - 65px); overflow: auto;">
-                  <p>
-                    <span class="has-text-weight-bold has-text-black" >[Admin]</span> <span class="has-text-weight-bold">Amulite</span>: <span class="has-text-weight-normal">Knock it off!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-primary">[Novice]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-info">[Advanced]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-warning">[Pro]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-success">[Insane]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-danger">[God]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                  <p>
-                    <span class="has-text-weight-bold has-text-danger" id="adminTag">[Ascended]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
-                  </p>
-                </div>
-
-                <div class="block">
-                  <div class="columns">
-                    <div class="column">
-                      <div class="field">
-                        <div class="control">
-                          <input class="input" type="text" placeholder="message...">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="column is-2">
-                      <input class="button is-primary is-fullwidth" type="submit" value="Send">
-                    </div>
-                  </div>
-
-                </div>
-
-
+              <div class="box" id="recentBetsBlock" style="height: 100%; overflow: auto;">
+                <p>
+                  <span class="has-text-weight-bold has-text-black" >[Admin]</span> <span class="has-text-weight-bold">Amulite</span>: <span class="has-text-weight-normal">Knock it off!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-primary">[Novice]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-link">[Advanced]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-warning">[Pro]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-success">[Insane]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-danger">[God]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
+                <p>
+                  <span class="has-text-weight-bold has-text-danger" id="adminTag">[Ascended]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                </p>
               </div>
+
             </div>
 
           </div>
@@ -308,6 +290,10 @@
 
 
   <style>
+
+    body::-webkit-scrollbar{
+      display: none;
+    }
 
     html, body {
       height: 100%;
@@ -324,31 +310,72 @@
 
 
   <script src="/socket.io/socket.io.js"></script>
+
   <script>
 
-  const socket = io();
 
+
+
+
+  const socket = io();
 
   const walletButton = document.getElementById("walletButton");
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
   const walletModal  = document.getElementById("walletModal");
 
-  //const debugButton = document.getElementById("debug");
+  const recentBetsBlock = document.getElementById("recentBetsBlock");
 
-  //debugButton.addEventListener('click', () => {
-  //  socket.emit('debug');
-  //})
+  const debugBetTrackerButton = document.getElementById("debugBetTrackerButton")
 
-  walletButton.addEventListener('click', () => {
-    walletModal.classList.add('is-active');
+  debugBetTrackerButton.addEventListener('click', () => {
+    socket.emit('debug');
+  })
+
+  socket.on('debug', (data) => {
+    //console.log(data);
+    let p         = document.createElement('p')
+    let rankSpan  = document.createElement('span')
+    let nameSpan  = document.createElement('span')
+    let betSpan   = document.createElement('span')
+
+    rankSpan.classList.add('has-text-weight-bold')
+
+    switch (data[0]) {
+      case "Novice":
+        rankSpan.classList.add('has-text-primary')
+        break;
+      case "Advanced":
+        rankSpan.classList.add('has-text-link')
+        break;
+      case "Pro":
+        rankSpan.classList.add('has-text-warning')
+        break;
+      case "Insane":
+        rankSpan.classList.add('has-text-success')
+        break;
+      case "God":
+        rankSpan.classList.add('has-text-danger')
+      default:
+        break;
+    }
+
+    nameSpan.classList.add('has-text-weight-bold')
+    betSpan.classList.add('has-text-weight-normal')
+
+    rankSpan.textContent  = `[${data[0]}] `;
+    nameSpan.textContent  = `${data[1]}: `
+    betSpan.textContent   = `${data[2]}`;
+
+    p.appendChild(rankSpan)
+    p.appendChild(nameSpan)
+    p.appendChild(betSpan)
+
+    recentBetsBlock.insertBefore(p, recentBetsBlock.firstChild)
+
   })
 
   walletModalCloseButton.addEventListener('click', () => {
     walletModal.classList.remove('is-active');
-  })
-
-  socket.on('debug', (data) => {
-    console.log(data);
   })
 
   socket.on('connect', () => {
