@@ -7,7 +7,7 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const crypto = require('crypto');
-const fair = require('fair.js');
+const fair = require('fair-js');
 
 require('dotenv').config();
 
