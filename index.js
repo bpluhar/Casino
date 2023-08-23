@@ -13,15 +13,6 @@ var terminal = require('terminal-kit').terminal;
 
 require('dotenv').config();
 
-//console.log(process.env.nonce);
-terminal.yellow(safe.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))('\n')
-
-
-
-
-
-
-
 app.get('/', (req, res) => {
   clientSendFile(res, "/public/index.html");
 });
@@ -40,46 +31,21 @@ function clientSendFile(res, filename) {
   terminal('Sending File: ').yellow(filename)('\n');
 }
 
-const ranks     = ['Baby', 'Novice', 'Advanced', 'Pro', 'Insane', 'God'];
-const names     = ['John', 'Mary', 'Peter', 'Susan', 'David', 'Elizabeth', 'Michael', 'Sarah', 'Richard', 'Jennifer'];
-const greetings = ["Hello", "Hi", "Howdy", "Greetings", "Salutations", "Aloha", "Konnichiwa", "Buenos días", "Guten Tag", "Hola"];
-
 io.on('connection', (socket) => {
 
   terminal.cyan('A user has connected\n');
 
-  // on 'chat message' from client to server
-  socket.on('chat message', (msg) => {
-
-    if (msg === "showTest") {
-
-    }
-
-    if (msg === "testAdd") {
-      let x = 0;
-
-      while (x < 1001) {
-        conn.query("INSERT INTO `chat_history` (`chat_id`, `timestamp`, `chat_msg`, `chat_author`) VALUES (NULL, current_timestamp(), 'test message', '?')", [x], function(error, results, fields) {
-          ifThrow(error);
-          console.log("INSERT Entry!");
-        });
-        x++;
-      };
-
-    }
-
-    // Reflect back to other clients
-    io.emit('chat message', msg); 
+  socket.on('debug', () => {
+    
   });
 
-  socket.on('debug', () => {
-
-    for (let x = 0; x <= 100; x++) {
-      let data = [ranks[getRandomInt(0, 5)], names[getRandomInt(0, 9)], greetings[getRandomInt(0, 9)]]
-      io.emit('debug', data)
-    }
-    
-  })
+  socket.on('flipTurd', (clientSeed) => {
+    let serverSeed = safe.sha256(safe.generateServerSeed());
+    terminal('Server Seed: ').yellow(serverSeed)('\n');
+    terminal('Client Seed: ').yellow(clientSeed)('\n');
+    let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
+    console.log(`Outcome of Bool: ${bool}`);
+  });
 
   socket.on('disconnect', () => {
     //console.log('A user disconnected'.brightRed);
@@ -108,14 +74,4 @@ function loadLast(res) {
       io.emit('chat message', res[x].chat_msg); // Respond with next row in line
       x++;
     }
-}
-
-function getRandomInt(min, max) {       
-  var byteArray = new Uint8Array(1);
-  crypto.getRandomValues(byteArray);
-  var range = max - min + 1;
-  var max_range = 256;
-  if (byteArray[0] >= Math.floor(max_range / range) * range)
-    return getRandomInt(min, max);
-  return min + (byteArray[0] % range);
 }

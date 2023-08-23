@@ -130,7 +130,7 @@
                         <input class="input" type="text" placeholder="Place a bet...">
                       </div>
                       <div class="control">
-                        <a class="button is-primary">
+                        <a class="button is-primary" id="flipTurdButton">
                           Flip the Turd!
                         </a>
                       </div>
@@ -184,10 +184,7 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script>
-
-
-
-
+  //const crypto = crypto();
 
   const socket = io();
 
@@ -197,11 +194,25 @@
 
   const recentBetsBlock = document.getElementById("recentBetsBlock");
 
-  const debugBetTrackerButton = document.getElementById("debugBetTrackerButton")
+  const flipTurdButton = document.getElementById("flipTurdButton")
 
-  debugBetTrackerButton.addEventListener('click', () => {
-    socket.emit('debug');
+  const rngPromise = new Promise(generateClientSeed);
+
+  flipTurdButton.addEventListener('click', () => {
+
+    generateClientSeed().then(clientSeed => {
+      if (clientSeed !== null) {
+        console.log('Server Seed:', clientSeed); // Use the hashHex value here
+        socket.emit('flipTurd', clientSeed);
+      } else {
+        console.log('Failed to generate and hash.');
+      }
+    });
+
+    //socket.emit('flipTurd', clientSeed);
   })
+
+
 
   socket.on('debug', (data) => {
     //console.log(data);
@@ -261,6 +272,36 @@
   ///////////////
   // Functions //
   ///////////////
+
+  async function generateClientSeed() {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const numBytes = 256;
+      const randomBytes = new Uint8Array(numBytes);
+      window.crypto.getRandomValues(randomBytes);
+
+      //console.log('Random 256 bytes:', randomBytes);
+
+      try {
+        // Hash the random bytes using SHA-256
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', randomBytes);
+
+        // Convert the hash buffer to a hexadecimal string
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+        //console.log('SHA-256 Hash:', hashHex);
+        return hashHex; // Return the hashHex value
+      } catch (error) {
+        console.error('Error hashing:', error);
+        return null; // Return null if there's an error
+      }
+    } else {
+      console.error('crypto.getRandomValues() is not supported in this browser.');
+      return null; // Return null if crypto.getRandomValues is not available
+    }
+  }
+
+
 
   </script>
 </body>
