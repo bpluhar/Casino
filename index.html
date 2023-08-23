@@ -1,40 +1,306 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Real-Time Chat</title>
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POOP CASINO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+
 <body>
-  <ul id="messages"></ul>
-  <form id="form" action="">
-    <input id="input" autocomplete="off" /><button id="submit">Send</button>
-  </form>
+
+<div class="modal" id="walletModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Poop Wallet</p>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-info" id="walletModalCloseButton">Close</button>
+    </footer>
+  </div>
+</div>
+
+  <section class="section">
+
+      <div class="notification is-warning is-light">
+        This system is still under active development. The current state is not final and is subject to change. If you discover any bugs or exploits, please use the <a href="/contact">contact page</a>. 
+      </div>
+      
+      <div class="columns is-mobile">
+
+        <!-- Left 1/4 of container -->
+        <div class="column is-2">
+          <div class="box">
+
+            <aside class="menu">
+
+              <p class="menu-label">Games</p>
+              <ul class="menu-list">
+                <li><a href="/blackjack">Blackjack</a></li>
+                <li><a href="/crash">Crash</a></li>
+                <li><a href="/hilo">Hi/Lo</a></li>
+              </ul>
+
+              <p class="menu-label">Stats</p>
+              <ul class="menu-list">
+                <li><a href="/stats">Personal Stats</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+              </ul>
+
+
+            </aside>
+
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="box">
+            
+            <!-- Main container -->
+
+            <!-- NavBar Block -->
+            <div class="block">
+              <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                  <div class="level-item">
+
+                    <div class="navbar-brand">
+                      <a href="/home"><img src="https://i.imgur.com/V2JFAbG.png" width="260" height="45"></a>
+                    </div>
+
+                  </div>
+                  <div class="level-item">
+
+                    <button class="button is-info" id="walletButton">&#128169Wallet</button>
+
+                  </div>
+                  <div class="level-item">
+
+                    <button class="button is-primary" id="debug">Server RNG (console)</button>
+
+                  </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                  <div class="buttons">
+
+                    <div class="level-item">
+                      <a class="button is-primary" href="/register">Sign Up</a>
+                    </div>
+
+                    <div class="level-item">
+                      <a class="button is-light" href="/login">Login</a>
+                    </div>
+
+                  </div>
+                </div>
+              </nav>
+            </div>
+
+            <!-- Top Stats Block -->
+            <div class="block">
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Poop Betters</p>
+                    <p class="title is-spaced">3,456</p>
+                    <table class="table is-narrow has-text-left">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Age</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          </td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td>38</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Total Poop Bet</p>
+                    <p class="title is-spaced">123</p>
+                    <table class="table is-narrow has-text-left">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Total Bets</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          </td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td>38</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Biggest Poop Win</p>
+                    <p class="title">456K</p>
+                    <table class="table is-narrow has-text-left">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Win</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          </td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td>38</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Biggest Poop Loss</p>
+                    <p class="title">789</p>
+                    <table class="table is-narrow has-text-left">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Loss</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          </td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                          <td>38</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                          <td>38</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </nav>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+  </section>
+
+
+
+
+
+
 
   <script src="/socket.io/socket.io.js"></script>
-
   <script>
 
   const socket = io();
 
-  const messageInput = document.getElementById("input");
-  const submitButton = document.getElementById("submit");
 
-  let typingTimer;
+  const walletButton = document.getElementById("walletButton");
+  const walletModalCloseButton = document.getElementById("walletModalCloseButton");
+  const walletModal  = document.getElementById("walletModal");
 
-  const typingTimeout = 2500;
+  const debugButton = document.getElementById("debug");
 
-  messageInput.addEventListener('blur', () => {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(() => {
-      socket.emit('client_stopTyping');
-    }, typingTimeout);
-  });
+  debugButton.addEventListener('click', () => {
+    socket.emit('debug');
+  })
 
-  messageInput.addEventListener('keydown', () => {
-    clearTimeout(typingTimer);
-    socket.emit('client_startTyping');
-  });
+  walletButton.addEventListener('click', () => {
+    walletModal.classList.add('is-active');
+  })
+
+  walletModalCloseButton.addEventListener('click', () => {
+    walletModal.classList.remove('is-active');
+  })
+
+  socket.on('debug', (data) => {
+    console.log(data);
+  })
+
+  socket.on('connect', () => {
+    console.log('Connected!')
+  })
+
+  socket.on('disconnect', () => {
+    console.log('Lost Connection!')
+  })
+
+  ///////////////
+  // Functions //
+  ///////////////
 
   </script>
 </body>
+
 </html>
 
