@@ -12,7 +12,7 @@ const fair = require('fair-js');
 require('dotenv').config();
 
 //console.log(process.env.nonce);
-console.log(fair.generateInteger("a1293ejn", "wqarfq3", process.env.nonce, 0, 100))
+console.log(fair.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))
 
 
 
