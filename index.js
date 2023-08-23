@@ -9,24 +9,16 @@ const io = socketIO(server);
 const crypto = require('crypto');
 const fair = require('fair.js');
 
-console.log(fair.generateInteger("a1293ejn", "wqarfq3", "SECRET", 0, 100))
-
 require('dotenv').config();
+
+//console.log(process.env.nonce);
+console.log(fair.generateInteger("a1293ejn", "wqarfq3", process.env.nonce, 0, 100))
+
+
 
 var terminal = require('terminal-kit').terminal;
 
-function ifThrow(error) {
-  if (error) throw error;
-};
 
-function loadLast(res) {
-    let x = 0;
-
-    while (x < res.length) {
-      io.emit('chat message', res[x].chat_msg); // Respond with next row in line
-      x++;
-    }
-}
 
 app.get('/', (req, res) => {
   clientSendFile(res, "/public/index.html");
@@ -36,26 +28,19 @@ app.get('/home', (req, res) => {
   clientSendFile(res, "/public/index.html");
 });
 
+app.get('/coinflip', (req, res) => {
+  clientSendFile(res, "/public/coinflip.html");
+});
+
 function clientSendFile(res, filename) {
   res.sendFile(__dirname + filename);
   //console.log(`Sending File: ${filename}`.yellow);
   terminal('Sending File: ').yellow(filename)('\n');
 }
 
-function getRandomInt(min, max) {       
-  var byteArray = new Uint8Array(1);
-  crypto.getRandomValues(byteArray);
-  var range = max - min + 1;
-  var max_range = 256;
-  if (byteArray[0] >= Math.floor(max_range / range) * range)
-    return getRandomInt(min, max);
-  return min + (byteArray[0] % range);
-}
-
 const ranks     = ['Baby', 'Novice', 'Advanced', 'Pro', 'Insane', 'God'];
 const names     = ['John', 'Mary', 'Peter', 'Susan', 'David', 'Elizabeth', 'Michael', 'Sarah', 'Richard', 'Jennifer'];
 const greetings = ["Hello", "Hi", "Howdy", "Greetings", "Salutations", "Aloha", "Konnichiwa", "Buenos días", "Guten Tag", "Hola"];
-
 
 io.on('connection', (socket) => {
 
@@ -105,3 +90,30 @@ io.on('connection', (socket) => {
 server.listen(process.env.port, () => {
   terminal.white('Server listening on port: ').green(`${process.env.port}\n`);
 });
+
+///////////////
+// FUNCTIONS //
+///////////////
+
+function ifThrow(error) {
+  if (error) throw error;
+}
+
+function loadLast(res) {
+    let x = 0;
+
+    while (x < res.length) {
+      io.emit('chat message', res[x].chat_msg); // Respond with next row in line
+      x++;
+    }
+}
+
+function getRandomInt(min, max) {       
+  var byteArray = new Uint8Array(1);
+  crypto.getRandomValues(byteArray);
+  var range = max - min + 1;
+  var max_range = 256;
+  if (byteArray[0] >= Math.floor(max_range / range) * range)
+    return getRandomInt(min, max);
+  return min + (byteArray[0] % range);
+}
