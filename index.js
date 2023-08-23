@@ -7,12 +7,12 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const crypto = require('crypto');
-const fair = require('fair-js');
+const safe = require('safe-rng');
 
 require('dotenv').config();
 
 //console.log(process.env.nonce);
-console.log(fair.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))
+console.log(safe.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))
 
 
 
