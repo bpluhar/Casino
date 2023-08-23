@@ -10,32 +10,73 @@
 
 <body>
 
-<div class="modal" id="walletModal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Poop Wallet</p>
-    </header>
-    <section class="modal-card-body">
-      <!-- Content ... -->
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-info" id="walletModalCloseButton">Close</button>
-    </footer>
+  <div class="modal" id="walletModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Poop Wallet</p>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-info" id="walletModalCloseButton">Close</button>
+      </footer>
+    </div>
   </div>
-</div>
 
-  <section class="section">
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="https://i.imgur.com/V2JFAbG.png" width="100" height="120">
+      </a>
 
-      <div class="notification is-warning is-light">
-        This system is still under active development. The current state is not final and is subject to change. If you discover any bugs or exploits, please use the <a href="/contact">contact page</a>. 
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/home">
+          Home
+        </a>
+
+        <a class="navbar-item">
+          Account
+        </a>
+
+        <div class="level-item">
+
+          <button class="button is-info" id="walletButton">Wallet</button>
+
+        </div>
+
       </div>
-      
-      <div class="columns is-mobile">
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="height: calc(100% - 56px); padding: .5rem 1.5rem">      
+      <div class="columns is-mobile" style="height: 100%;">
 
         <!-- Left 1/4 of container -->
         <div class="column is-2">
-          <div class="box">
+          <div class="box" style="height: 100%">
 
             <aside class="menu">
 
@@ -59,49 +100,13 @@
         </div>
 
         <div class="column">
-          <div class="box">
+          <div class="box" style="height: 100%">
             
             <!-- Main container -->
 
             <!-- NavBar Block -->
             <div class="block">
-              <nav class="level">
-                <!-- Left side -->
-                <div class="level-left">
-                  <div class="level-item">
-
-                    <div class="navbar-brand">
-                      <a href="/home"><img src="https://i.imgur.com/V2JFAbG.png" width="260" height="45"></a>
-                    </div>
-
-                  </div>
-                  <div class="level-item">
-
-                    <button class="button is-info" id="walletButton">&#128169Wallet</button>
-
-                  </div>
-                  <div class="level-item">
-
-                    <button class="button is-primary" id="debug">Server RNG (console)</button>
-
-                  </div>
-                </div>
-
-                <!-- Right side -->
-                <div class="level-right">
-                  <div class="buttons">
-
-                    <div class="level-item">
-                      <a class="button is-primary" href="/register">Sign Up</a>
-                    </div>
-
-                    <div class="level-item">
-                      <a class="button is-light" href="/login">Login</a>
-                    </div>
-
-                  </div>
-                </div>
-              </nav>
+              <div class="notification is-warning is-light"> Primar lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.</div>
             </div>
 
             <!-- Top Stats Block -->
@@ -109,20 +114,20 @@
               <nav class="level">
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Total Poop Betters</p>
-                    <p class="title is-spaced">3,456</p>
+                    <p class="heading">Total Poop Pile</p>
+                    <p class="title is-spaced">123,503,490</p>
                     <table class="table is-narrow has-text-left">
                       <thead>
                         <tr>
                           <th>Rank</th>
                           <th>User</th>
-                          <th>Age</th>
+                          <th>Age (years)</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <th>1</th>
-                          <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                          <td><a href="" title="Leicester City F.C.">Amulite</a>
                           </td>
                           <td>38</td>
                         </tr>
@@ -143,8 +148,8 @@
 
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Total Poop Bet</p>
-                    <p class="title is-spaced">123</p>
+                    <p class="heading">Total Poop Wagered</p>
+                    <p class="title is-spaced">12,350,349</p>
                     <table class="table is-narrow has-text-left">
                       <thead>
                         <tr>
@@ -177,8 +182,8 @@
 
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Biggest Poop Win</p>
-                    <p class="title">456K</p>
+                    <p class="heading">Total Poop Won</p>
+                    <p class="title">3,864,560</p>
                     <table class="table is-narrow has-text-left">
                       <thead>
                         <tr>
@@ -211,8 +216,8 @@
 
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Biggest Poop Loss</p>
-                    <p class="title">789</p>
+                    <p class="heading">Total Poop Lost</p>
+                    <p class="title">8,485,789</p>
                     <table class="table is-narrow has-text-left">
                       <thead>
                         <tr>
@@ -243,7 +248,54 @@
                   </div>
                 </div>
               </nav>
+            </div>
+            <hr />
+            <!-- Chat Box Block -->
+            <div class="block" style="height: calc(100% - 360px)">
+              <div class="box" style="height: 100%;">
 
+                <div class="block" style="height: calc(100% - 65px); overflow: auto;">
+                  <p>
+                    <span class="has-text-weight-bold has-text-black" >[Admin]</span> <span class="has-text-weight-bold">Amulite</span>: <span class="has-text-weight-normal">Knock it off!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-primary">[Novice]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-info">[Advanced]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-warning">[Pro]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-success">[Insane]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-danger">[God]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                  <p>
+                    <span class="has-text-weight-bold has-text-danger" id="adminTag">[Ascended]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
+                  </p>
+                </div>
+
+                <div class="block">
+                  <div class="columns">
+                    <div class="column">
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" placeholder="message...">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column is-2">
+                      <input class="button is-primary is-fullwidth" type="submit" value="Send">
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
             </div>
 
           </div>
@@ -255,7 +307,19 @@
 
 
 
+  <style>
 
+    html, body {
+      height: 100%;
+    }
+
+    span#adminTag {
+      background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+  </style>
 
 
 
@@ -269,11 +333,11 @@
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
   const walletModal  = document.getElementById("walletModal");
 
-  const debugButton = document.getElementById("debug");
+  //const debugButton = document.getElementById("debug");
 
-  debugButton.addEventListener('click', () => {
-    socket.emit('debug');
-  })
+  //debugButton.addEventListener('click', () => {
+  //  socket.emit('debug');
+  //})
 
   walletButton.addEventListener('click', () => {
     walletModal.classList.add('is-active');
