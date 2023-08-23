@@ -1,6 +1,6 @@
 {
   "name": "poop-casino",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple realtime chat running on NodeJS with Socket.IO",
   "main": "index.js",
   "scripts": {
