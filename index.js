@@ -9,14 +9,16 @@ const io = socketIO(server);
 const crypto = require('crypto');
 const safe = require('safe-rng');
 
+var terminal = require('terminal-kit').terminal;
+
 require('dotenv').config();
 
 //console.log(process.env.nonce);
-console.log(safe.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))
+terminal.yellow(safe.generateInteger("a1293sejn", "wqarfq3", process.env.nonce, 0, 100))('\n')
 
 
 
-var terminal = require('terminal-kit').terminal;
+
 
 
 
