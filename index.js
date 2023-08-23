@@ -10,7 +10,6 @@ const crypto = require('crypto');
 
 require('dotenv').config();
 
-var colors = require('colors');
 var terminal = require('terminal-kit').terminal;
 
 function ifThrow(error) {
