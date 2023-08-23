@@ -6,32 +6,34 @@
 <body>
   <ul id="messages"></ul>
   <form id="form" action="">
-    <input id="input" autocomplete="off" /><button>Send</button>
+    <input id="input" autocomplete="off" /><button id="submit">Send</button>
   </form>
+
   <script src="/socket.io/socket.io.js"></script>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 
   <script>
 
-    $(function () {
-      const socket = io();
+  const socket = io();
 
-      $('form').submit(function () {
-        socket.emit('chat message', $('#input').val()); // Need to strip special characters
-          $('#input').val('');
-        return false;
-      });
+  const messageInput = document.getElementById("input");
+  const submitButton = document.getElementById("submit");
 
-      socket.on('chat message', function (msg) {
-        $('#messages').append($('<li>').text(msg));
-      });
+  let typingTimer;
 
+  const typingTimeout = 2500;
 
+  messageInput.addEventListener('blur', () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      socket.emit('client_stopTyping');
+    }, typingTimeout);
+  });
 
-    });
-    
+  messageInput.addEventListener('keydown', () => {
+    clearTimeout(typingTimer);
+    socket.emit('client_startTyping');
+  });
+
   </script>
 </body>
 </html>

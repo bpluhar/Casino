@@ -5,14 +5,10 @@ const socketIO = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const mysql = require('mysql');
 
-const conn = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'chat_log'
-});
+require('dotenv').config();
+
+var colors = require('colors');
 
 function ifThrow(error) {
   if (error) throw error;
@@ -31,25 +27,13 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html'); 
 });
 
-app.get('/chat', (req, res) => {
-  res.sendFile(__dirname + '/chat.html'); 
-});
+
 
 io.on('connection', (socket) => {
 
-  console.log('A user connected');
+  console.log('A user connected'.brightCyan);
 
-  // Pull past messages
-
-  
-
-  conn.query("SELECT * FROM `chat_history` ORDER BY `chat_id` ASC LIMIT 0, 10", function(error, results, fields) {
-    ifThrow(error);
-    //console.log(results);
-    if (results.length == 0) return;
-    loadLast(results);
-  });
-
+  // on 'chat message' from client to server
   socket.on('chat message', (msg) => {
 
     if (msg === "showTest") {
@@ -67,21 +51,26 @@ io.on('connection', (socket) => {
         x++;
       };
 
-      console.log("added 1000");
-
     }
-    
 
-
-    io.emit('chat message', msg); // Reflect back to other clients
+    // Reflect back to other clients
+    io.emit('chat message', msg); 
   });
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    console.log('A user disconnected'.brightRed);
+  });
+
+  socket.on('client_startTyping', () => {
+    console.log("User is Typing!");
+  });
+
+  socket.on('client_stopTyping', () => {
+    console.log("User stopped typing!");
   });
   
 });
 
-server.listen(3000, () => {
-  console.log('Server listening on *:3000');
+server.listen(process.env.port, () => {
+  console.log(`Server listening on *:${process.env.port}`);
 });
