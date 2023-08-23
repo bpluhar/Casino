@@ -27,6 +27,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "fair-js": "^1.2.3",
     "socket.io": "^4.7.2",
     "terminal-kit": "^3.0.0"
   }
