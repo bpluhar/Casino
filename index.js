@@ -29,11 +29,11 @@ function loadLast(res) {
 }
 
 app.get('/', (req, res) => {
-  clientSendFile(res, "/index.html");
+  clientSendFile(res, "/public/index.html");
 });
 
 app.get('/home', (req, res) => {
-  clientSendFile(res, "/index.html");
+  clientSendFile(res, "/public/index.html");
 });
 
 function clientSendFile(res, filename) {
