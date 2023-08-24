@@ -45,8 +45,10 @@ io.on('connection', (socket) => {
     terminal('Client Seed: ').yellow(clientSeed)('\n');
     let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
 
+    let handover = {"clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool};
+
     setTimeout(function() {
-      console.log(`Outcome of Bool: ${bool}`);
+      socket.emit('flipTurd', handover);
     }, 2000)
 
   });

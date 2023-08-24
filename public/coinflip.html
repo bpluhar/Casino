@@ -114,27 +114,26 @@
             <div class="block" style="height: 50%">
               <div class="box" style="height: 100%">
                 <h1 class="title is-2">Coin Flip</h1>
-                <p class="subtitle">A game against the odds! Follow <a href="https://github.com/bpluhar/fair.js/blob/main/fair.js">this link</a> to read the algorithm powering the Provable Fair Number System.</p>
+                <p class="subtitle">A game against the odds! Follow <a href="https://github.com/bpluhar/fair.js/blob/main/safe-rng.js">this link</a> to read the algorithm powering the Provable Fair Number System.</p>
                 <hr />
                 <div class="columns is-mobile">
 
-                  <div class="column is-3">
-                    <figure class="image is-square">
-                      <img src="https://bulma.io/images/placeholders/128x128.png">
-                    </figure>
-                  </div>
-
-                  <div class="column">
+                  <div class="column is-4">
                     <div class="field has-addons has-addons-left">
                       <div class="control">
                         <input class="input" type="text" placeholder="Place a bet...">
                       </div>
                       <div class="control">
                         <a class="button is-primary" id="flipTurdButton">
-                          Flip the Turd!
+                          flip
                         </a>
                       </div>
                     </div>
+                    
+                  </div>
+
+                  <div class="column is-8">
+                    <figure class="image is-128x128" id="coin"></figure>
                   </div>
                 
                 </div>
@@ -162,6 +161,19 @@
 
 
   <style>
+
+    #coin {
+      background: gray;
+      transition: background .2s ease-in;
+    }
+
+    .coinFalse {
+      background: #48c78e !important;
+    }
+
+    .coinTrue {
+      background: #f14668 !important;
+    }
 
     body::-webkit-scrollbar{
       display: none;
@@ -192,6 +204,8 @@
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
   const walletModal  = document.getElementById("walletModal");
 
+  const coin = document.getElementById("coin");
+
   const recentBetsBlock = document.getElementById("recentBetsBlock");
 
   const flipTurdButton = document.getElementById("flipTurdButton")
@@ -202,7 +216,8 @@
 
     generateClientSeed().then(clientSeed => {
       if (clientSeed !== null) {
-        console.log('Server Seed:', clientSeed); // Use the hashHex value here
+        //console.log('Server Seed:', clientSeed); // Use the hashHex value here
+        flipTurdButton.classList.add('is-loading')
         socket.emit('flipTurd', clientSeed);
       } else {
         console.log('Failed to generate and hash.');
@@ -212,7 +227,25 @@
     //socket.emit('flipTurd', clientSeed);
   })
 
-
+  // data['serverSeed']
+  // data['clientSeed']
+  // data['res']
+  socket.on('flipTurd', (data) => {
+    flipTurdButton.classList.remove('is-loading')
+    if (data['res']) {
+      coin.classList.add('coinTrue');
+      console.log(data['res'])
+      setTimeout(function() {
+        coin.classList.remove('coinTrue')
+      }, 3000);
+    } else {
+      coin.classList.add('coinFalse');
+      console.log(data['res'])
+      setTimeout(function() {
+        coin.classList.remove('coinFalse')
+      }, 3000);
+    }
+  })
 
   socket.on('debug', (data) => {
     //console.log(data);
