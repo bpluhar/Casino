@@ -44,7 +44,11 @@ io.on('connection', (socket) => {
     terminal('Server Seed: ').yellow(serverSeed)('\n');
     terminal('Client Seed: ').yellow(clientSeed)('\n');
     let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
-    console.log(`Outcome of Bool: ${bool}`);
+
+    setTimeout(function() {
+      console.log(`Outcome of Bool: ${bool}`);
+    }, 2000)
+
   });
 
   socket.on('disconnect', () => {
