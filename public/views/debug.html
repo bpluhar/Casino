@@ -110,49 +110,16 @@
           <!--<div class="box" style="height: 100%">-->
             
             <!-- Main container -->
-
+            <div class="box">
+              <a class="button is-primary" id="debugBtn">Debug</a>
+            </div>
             <!-- Notification Banner Block -->
 
             <!-- Top Stats Block -->
-            <div class="block" style="height: 50%">
-              <div class="box" style="height: 100%">
-                <h1 class="title is-2">Coin Flip</h1>
-                <p class="subtitle">A game against the odds! Follow <a href="https://github.com/bpluhar/fair.js/blob/main/safe-rng.js">this link</a> to read the algorithm powering the Provable Fair Number System.</p>
-                <hr />
-
-                <div class="columns is-mobile">
-                  <div class="column is-4">
-                    <div class="field has-addons has-addons-left">
-                      <div class="control">
-                        <input class="input" type="text" placeholder="Place a bet...">
-                      </div>
-                      <div class="control">
-                        <a class="button is-primary" id="flipTurdButton">
-                          flip
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="container is-fluid">
-                    <div class="column is-8">
-                      <figure class="image is-128x128" id="coin"></figure>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
+            
 
             <!-- Current Session Block Box -->
-            <div class="block" id="currentSessionBlock">
-
-              <div class="box" id="currentSessionBox">
-                <h1 class="title is-2">Curret Session</h1>
-              </div>
-
-            </div>
+            
 
           <!--</div>-->
 
@@ -216,6 +183,8 @@
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
   const walletModal  = document.getElementById("walletModal");
 
+  const debugBtn = document.getElementById("debugBtn");
+
   const coin = document.getElementById("coin");
 
   const recentBetsBlock = document.getElementById("recentBetsBlock");
@@ -234,41 +203,11 @@
     });
   });
 
-  flipTurdButton.addEventListener('click', () => {
-
-    generateClientSeed().then(clientSeed => {
-      if (clientSeed !== null) {
-        //console.log('Server Seed:', clientSeed); // Use the hashHex value here
-        flipTurdButton.classList.add('is-loading')
-        socket.emit('flipTurd', clientSeed);
-      } else {
-        console.log('Failed to generate and hash.');
-      }
-    });
-
-    //socket.emit('flipTurd', clientSeed);
+  debugBtn.addEventListener('click', () => {
+    socket.emit('debug');
   })
 
-  // data['serverSeed']
-  // data['clientSeed']
-  // data['res']
-  socket.on('flipTurd', (data) => {
-    flipTurdButton.classList.remove('is-loading')
-    if (data['res']) {
-      coin.classList.add('coinTrue');
-      console.log(data['res'])
-      setTimeout(function() {
-        coin.classList.remove('coinTrue')
-      }, 2000);
-    } else {
-      coin.classList.add('coinFalse');
-      console.log(data['res'])
-      setTimeout(function() {
-        coin.classList.remove('coinFalse')
-      }, 2000);
-    }
-  })
-
+  
   socket.on('debug', (data) => {
     //console.log(data);
     let p         = document.createElement('p')

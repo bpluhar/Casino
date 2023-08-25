@@ -94,6 +94,11 @@
                 <li><a href="/leaderboard">Leaderboard</a></li>
               </ul>
 
+              <p class="menu-label">Helpers</p>
+              <ul class="menu-list">
+                <li><a href="/debug">Debug & Tests</a></li>
+              </ul>
+
 
             </aside>
 
@@ -106,9 +111,6 @@
             <!-- Main container -->
 
             <!-- NavBar Block -->
-            <div class="block">
-              <div class="notification is-warning is-light"> When using the <strong>Test Chat</strong> button in the navbar, be sure to test with multiple tabs open on this same page to see the webkit in action! The button currently creates <strong>100</strong> different messages and sends them in <strong>100</strong> seperate io.emit() calls. The rng for chat generation is <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues">available here</a>.</div>
-            </div>
 
             <!-- Top Stats Block -->
             <div class="block">
@@ -276,7 +278,6 @@
                 <p>
                   <span class="has-text-weight-bold has-text-danger" id="adminTag">[Ascended]</span> <span class="has-text-weight-bold">Jojo12</span>: <span class="has-text-weight-normal">my fault g!</span>
                 </p>
-                
             </div>
 
           </div>
@@ -306,18 +307,33 @@
 
   </style>
 
-
-
   <script src="/socket.io/socket.io.js" />
-  <script type="text/javascript" src="/safe-rng/safe-rng.js" />
 
-  <script>
-
-
-  const safe = require('safe-rng');
-
+  <script type="text/javascript">
+    
+  console.log("help")
 
   const socket = io();
+
+
+  const walletButton = document.getElementById("walletButton");
+  const walletModalCloseButton = document.getElementById("walletModalCloseButton");
+  const walletModal  = document.getElementById("walletModal");
+
+  const debugBtn = document.getElementById("debugBtn");
+
+  const coin = document.getElementById("coin");
+
+  const recentBetsBlock = document.getElementById("recentBetsBlock");
+
+  const flipTurdButton = document.getElementById("flipTurdButton")
+
+  const rngPromise = new Promise(generateClientSeed);
+
+
+
+
+
 
   const walletButton = document.getElementById("walletButton");
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
@@ -330,6 +346,8 @@
   debugBetTrackerButton.addEventListener('click', () => {
     socket.emit('debug');
   })
+
+ 
 
   socket.on('debug', (data) => {
     //console.log(data);
@@ -371,8 +389,9 @@
     p.appendChild(betSpan)
 
     recentBetsBlock.insertBefore(p, recentBetsBlock.firstChild)
-
   })
+
+
 
   walletModalCloseButton.addEventListener('click', () => {
     walletModal.classList.remove('is-active');
@@ -391,6 +410,8 @@
   ///////////////
 
   </script>
+
+  
 </body>
 
 </html>

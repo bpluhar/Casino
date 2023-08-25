@@ -1,44 +1,52 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
-
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-
 const crypto = require('crypto');
 const safe = require('safe-rng');
-
 var terminal = require('terminal-kit').terminal;
-
-require('dotenv').config();
 
 const viewsFolder = "/public/views";
 
 app.get('/', (req, res) => {
-  clientSendFile(res, `${viewsFolder}/index.html`);
+  clientSendFile(res, `index.html`);
 });
 
 app.get('/home', (req, res) => {
-  clientSendFile(res, `${viewsFolder}/index.html`);
+  clientSendFile(res, `index.html`);
 });
 
 app.get('/coinflip', (req, res) => {
-  clientSendFile(res, `${viewsFolder}/coinflip.html`);
+  clientSendFile(res, `coinflip.html`);
 });
 
-function clientSendFile(res, filename) {
-  res.sendFile(__dirname + filename);
-  //console.log(`Sending File: ${filename}`.yellow);
-  terminal('Sending File: ').yellow(filename)('\n');
-}
+app.get('/debug', (req, res) => {
+  clientSendFile(res, `debug.html`)
+ });
+
+const rank = ['Novice', 'Advanced', 'Pro', 'Insane', 'God'];
+const name = ['John', 'Emily', 'Michael', 'Sarah', 'David', 'Jessica', 'Daniel', 'Jennifer', 'Christopher', 'Linda'];
+const msg = "Hello, I'm ";
+
 
 io.on('connection', (socket) => {
 
-  terminal.cyan('A user has connected\n');
+  terminal.green('A user has connected\n');
 
   socket.on('debug', () => {
+    // DEBUG //
     
+    let data = [];
+
+    data[0] = rank[getRandomInt(0, 4)];
+    data[1] = name[getRandomInt(0, 9)]
+    data[3] = msg + rName;
+
+    socket.emit('debug', data);
+
   });
 
   socket.on('flipTurd', (clientSeed) => {
@@ -64,7 +72,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(process.env.port, () => {
-  terminal.white('Server listening on port: ').green(`${process.env.port}\n`);
+  terminal.cyan('Server listening on http://localhost:1337\n');
 });
 
 ///////////////
@@ -82,4 +90,14 @@ function loadLast(res) {
       io.emit('chat message', res[x].chat_msg); // Respond with next row in line
       x++;
     }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function clientSendFile(res, filename) {
+  res.sendFile(__dirname + viewsFolder + '/' + filename);
+  //console.log(`Sending File: ${filename}`.yellow);
+  //terminal('Sending File: ').yellow(filename)('\n');
 }
