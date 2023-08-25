@@ -71,6 +71,7 @@
     </div>
   </nav>
 
+
   <section class="section" style="height: calc(100% - 56px); padding: .5rem 1.5rem">      
       <div class="columns is-mobile" style="height: 100%;">
 
@@ -100,15 +101,13 @@
           </div>
         </div>
 
+
         <div class="column">
-          <div class="box" style="height: 100%">
+          <!--<div class="box" style="height: 100%">-->
             
             <!-- Main container -->
 
             <!-- Notification Banner Block -->
-            <div class="block">
-              <div class="notification is-info is-light"> If you find any bugs, please report them <a href="https://github.com/bpluhar/Poop-Casino/issues">here</a>.</div>
-            </div>
 
             <!-- Top Stats Block -->
             <div class="block" style="height: 50%">
@@ -116,8 +115,8 @@
                 <h1 class="title is-2">Coin Flip</h1>
                 <p class="subtitle">A game against the odds! Follow <a href="https://github.com/bpluhar/fair.js/blob/main/safe-rng.js">this link</a> to read the algorithm powering the Provable Fair Number System.</p>
                 <hr />
-                <div class="columns is-mobile">
 
+                <div class="columns is-mobile">
                   <div class="column is-4">
                     <div class="field has-addons has-addons-left">
                       <div class="control">
@@ -129,13 +128,13 @@
                         </a>
                       </div>
                     </div>
-                    
                   </div>
 
-                  <div class="column is-8">
-                    <figure class="image is-128x128" id="coin"></figure>
+                  <div class="container is-fluid">
+                    <div class="column is-8">
+                      <figure class="image is-128x128" id="coin"></figure>
+                    </div>
                   </div>
-                
                 </div>
 
 
@@ -143,15 +142,16 @@
             </div>
 
             <!-- Current Session Block Box -->
-            <div class="block">
+            <div class="block" id="currentSessionBlock">
 
-              <div class="box">
+              <div class="box" id="currentSessionBox">
                 <h1 class="title is-2">Curret Session</h1>
               </div>
 
             </div>
 
-          </div>
+          <!--</div>-->
+
         </div>
 
       </div>
@@ -161,6 +161,14 @@
 
 
   <style>
+
+    #currentSessionBlock {
+      height: calc(50% - 24px);
+    }
+
+    #currentSessionBox {
+      height: 100%;
+    }
 
     #coin {
       background: gray;
@@ -212,6 +220,16 @@
 
   const rngPromise = new Promise(generateClientSeed);
 
+  document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+  });
+
   flipTurdButton.addEventListener('click', () => {
 
     generateClientSeed().then(clientSeed => {
@@ -237,13 +255,13 @@
       console.log(data['res'])
       setTimeout(function() {
         coin.classList.remove('coinTrue')
-      }, 3000);
+      }, 2000);
     } else {
       coin.classList.add('coinFalse');
       console.log(data['res'])
       setTimeout(function() {
         coin.classList.remove('coinFalse')
-      }, 3000);
+      }, 2000);
     }
   })
 

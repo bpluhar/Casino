@@ -13,16 +13,18 @@ var terminal = require('terminal-kit').terminal;
 
 require('dotenv').config();
 
+const viewsFolder = "/public/views";
+
 app.get('/', (req, res) => {
-  clientSendFile(res, "/public/index.html");
+  clientSendFile(res, `${viewsFolder}/index.html`);
 });
 
 app.get('/home', (req, res) => {
-  clientSendFile(res, "/public/index.html");
+  clientSendFile(res, `${viewsFolder}/index.html`);
 });
 
 app.get('/coinflip', (req, res) => {
-  clientSendFile(res, "/public/coinflip.html");
+  clientSendFile(res, `${viewsFolder}/coinflip.html`);
 });
 
 function clientSendFile(res, filename) {
@@ -49,7 +51,7 @@ io.on('connection', (socket) => {
 
     setTimeout(function() {
       socket.emit('flipTurd', handover);
-    }, 2000)
+    }, 1250)
 
   });
 
