@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POOP CASINO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+
+<body>
+
+  <div class="modal" id="walletModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Poop Wallet</p>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-info" id="walletModalCloseButton">Close</button>
+      </footer>
+    </div>
+  </div>
+
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/home">
+        <img src="https://i.imgur.com/V2JFAbG.png" width="100" height="120">
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/home">
+          Home
+        </a>
+
+        <a class="navbar-item">
+          Account
+        </a>
+
+        <div class="level-item">
+
+          <button class="button is-info" id="debugBetTrackerButton">Test Chat</button>
+
+        </div>
+
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="section" style="height: calc(100% - 56px); padding: .5rem 1.5rem">      
+      <div class="columns is-mobile" style="height: 100%;">
+
+        <!-- Left 1/4 of container -->
+        <div class="column is-2">
+          <div class="box" style="height: 100%">
+
+            <aside class="menu">
+
+              <p class="menu-label">Games</p>
+              <ul class="menu-list">
+                <li><a href="/blackjack">Blackjack</a></li>
+                <li><a href="/crash">Crash</a></li>
+                <li><a href="/hilo">Hi/Lo</a></li>
+                <li><a href="/coinflip">Coin Flip</a></li>
+              </ul>
+
+              <p class="menu-label">Stats</p>
+              <ul class="menu-list">
+                <li><a href="/stats">Personal Stats</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+              </ul>
+
+              <p class="menu-label">Helpers</p>
+              <ul class="menu-list">
+                <li><a href="/debug">Debug & Tests</a></li>
+              </ul>
+
+            </aside>
+
+          </div>
+        </div>
+
+
+        <div class="column">
+          <!--<div class="box" style="height: 100%">-->
+            
+            <!-- Main container -->
+
+            <!-- Notification Banner Block -->
+
+            <!-- Top Stats Block -->
+            <div class="block" style="height: 50%">
+              <div class="box" style="height: 100%">
+                <h1 class="title is-2">Coin Flip</h1>
+                <p class="subtitle">A game against the odds! Follow <a href="https://github.com/bpluhar/fair.js/blob/main/safe-rng.js">this link</a> to read the algorithm powering the Provable Fair Number System.</p>
+                <hr />
+
+                <div class="columns is-mobile">
+                  <div class="column is-4">
+                    <div class="field has-addons has-addons-left">
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Place a bet...">
+                      </div>
+                      <div class="control">
+                        <a class="button is-primary" id="flipTurdButton">
+                          flip
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="container is-fluid">
+                    <div class="column is-8">
+                      <figure class="image is-128x128" id="coin"></figure>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <!-- Current Session Block Box -->
+            <div class="block" id="currentSessionBlock">
+
+              <div class="box" id="currentSessionBox">
+              </div>
+
+            </div>
+
+          <!--</div>-->
+
+        </div>
+
+      </div>
+
+  </section>
+
+
+
+  <style>
+
+    #currentSessionBlock {
+      height: calc(50% - 24px);
+    }
+
+    #currentSessionBox {
+      overflow: auto;
+      height: 100%;
+    }
+
+    #coin {
+      background: gray;
+      transition: background .2s ease-in;
+    }
+
+    .coinFalse {
+      background: #f14668 !important;
+    }
+
+    .coinTrue {
+      background: #48c78e !important;
+    }
+
+    body::-webkit-scrollbar{
+      display: none;
+    }
+
+    #currentSessionBox::-webkit-scrollbar{
+      display: none;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    span#rainbowTag {
+      background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+  </style>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+  //const crypto = crypto();
+
+  const socket = io();
+
+  const walletButton = document.getElementById("walletButton");
+  const walletModalCloseButton = document.getElementById("walletModalCloseButton");
+  const walletModal  = document.getElementById("walletModal");
+
+  const coin = document.getElementById("coin");
+
+  const currentSessionBox = document.getElementById("currentSessionBox");
+
+  const flipTurdButton = document.getElementById("flipTurdButton")
+
+  const rngPromise = new Promise(generateClientSeed);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+  });
+
+  flipTurdButton.addEventListener('click', () => {
+
+    generateClientSeed().then(clientSeed => {
+      if (clientSeed !== null) {
+        //console.log('Server Seed:', clientSeed); // Use the hashHex value here
+        flipTurdButton.classList.add('is-loading')
+        socket.emit('flipTurd', clientSeed);
+      } else {
+        console.log('Failed to generate and hash.');
+      }
+    });
+
+    //socket.emit('flipTurd', clientSeed);
+  })
+
+  // data['serverSeed']
+  // data['clientSeed']
+  // data['res']
+
+
+  // flipTurd received back from server, show results
+  socket.on('flipTurd', (data) => {
+    flipTurdButton.classList.remove('is-loading')
+    if (data['res']) {
+      coin.classList.add('coinTrue');
+      addToSessionBlock(data);
+      
+      setTimeout(function() {
+        coin.classList.remove('coinTrue')
+      }, 2000);
+    } else {
+      coin.classList.add('coinFalse');
+      addToSessionBlock(data);
+
+      setTimeout(function() {
+        coin.classList.remove('coinFalse')
+      }, 2000);
+    }
+  })
+
+  walletModalCloseButton.addEventListener('click', () => {
+    walletModal.classList.remove('is-active');
+  })
+
+  socket.on('connect', () => {
+    console.log('Connected!')
+  })
+
+  socket.on('disconnect', () => {
+    console.log('Lost Connection!')
+  })
+
+  ///////////////
+  // Functions //
+  ///////////////
+
+  async function generateClientSeed() {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const numBytes = 256;
+      const randomBytes = new Uint8Array(numBytes);
+      window.crypto.getRandomValues(randomBytes);
+
+      //console.log('Random 256 bytes:', randomBytes);
+
+      try {
+        // Hash the random bytes using SHA-256
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', randomBytes);
+
+        // Convert the hash buffer to a hexadecimal string
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+        //console.log('SHA-256 Hash:', hashHex);
+        return hashHex; // Return the hashHex value
+      } catch (error) {
+        console.error('Error hashing:', error);
+        return null; // Return null if there's an error
+      }
+    } else {
+      console.error('crypto.getRandomValues() is not supported in this browser.');
+      return null; // Return null if crypto.getRandomValues is not available
+    }
+  }
+
+  // data = "clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool}; 
+  function addToSessionBlock(data) {
+
+    let htmlArray = [];
+    
+
+    let p               = document.createElement('p')
+    let hr              = document.createElement('hr')
+
+    let timeSpan        = document.createElement('span')
+    let transIdSpan     = document.createElement('span')
+    let serverSeedSpan  = document.createElement('span')
+    let clientSeedSpan  = document.createElement('span')
+    let betSpan         = document.createElement('span')
+    let changeSpan      = document.createElement('span')
+
+    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+
+    if (data['res']) {
+      // True/Heads
+      timeSpan.classList.add('has-text-primary')
+      transIdSpan.classList.add('has-text-primary')
+      serverSeedSpan.classList.add('has-text-primary')
+      clientSeedSpan.classList.add('has-text-primary')
+      betSpan.classList.add('has-text-primary')
+      changeSpan.classList.add('has-text-primary')
+      changeSpan.textContent  = `+ ${Math.floor(Math.random() * 1000)}`
+    } else {
+      timeSpan.classList.add('has-text-danger')
+      transIdSpan.classList.add('has-text-danger')
+      serverSeedSpan.classList.add('has-text-danger')
+      clientSeedSpan.classList.add('has-text-danger')
+      betSpan.classList.add('has-text-danger')
+      changeSpan.classList.add('has-text-danger')
+      changeSpan.textContent  = `- ${Math.floor(Math.random() * 1000)}`
+    }
+
+    timeSpan.classList.add('button')
+    transIdSpan.classList.add('button')
+    serverSeedSpan.classList.add('button')
+    clientSeedSpan.classList.add('button')
+    betSpan.classList.add('button')
+    changeSpan.classList.add('button')
+
+    timeSpan.textContent        = time
+    transIdSpan.textContent     = "Transaction: 01234567"
+    serverSeedSpan.textContent  = data['serverSeed'].substring(0, 9)
+    clientSeedSpan.textContent  = data['clientSeed'].substring(0, 9)
+    betSpan.textContent         = `Bet: ${Math.floor(Math.random() * 1000)}`
+
+    p.appendChild(timeSpan)
+    p.appendChild(transIdSpan)
+    p.appendChild(serverSeedSpan)
+    p.appendChild(clientSeedSpan)
+    p.appendChild(betSpan)
+    p.appendChild(changeSpan)
+    p.appendChild(hr);
+
+    currentSessionBox.insertBefore(p, currentSessionBox.firstChild)
+
+  }
+
+
+
+  </script>
+</body>
+
+</html>
+
