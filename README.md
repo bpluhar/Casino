@@ -1,13 +1,17 @@
-NodeJS Realtime Chat
+![Casino](https://i.imgur.com/ceFZBdT.png)
 ============
 
-This is a simple realtime chat built on NodeJS and powered by <a href="https://github.com/socketio/socket.io">Socket.IO</a>
+Realtime Casino app powered by NodeJS with Socket.IO and Crpyographic Signatures. Utilizes safe-rng for Provably Fair Number Generation
 
 
 ---
 
-## Features
-- Real Time Chat Messaging
+## To-Do List
+- ~~Real Time Chat Messaging~~
+- ~~Coin Flip with Server Sided Results using safe-rng~~
+- Database Schema and Connection
+- Faux Currency with Betting
+- Link to Blockchain (ETH for Ease)
 
 ---
 
@@ -19,4 +23,4 @@ Clone this repository and start the server by running `npm start`
 ## License
 >You can check out the full license [here](https://github.com/bpluhar/NodeJS-Realtime-Chat/blob/main/LICENSE)
 
-This project is licensed under the terms of the **GPL-3.0** license.
+This project is licensed under the terms of the **MIT** license.
