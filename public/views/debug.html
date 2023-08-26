@@ -112,6 +112,8 @@
             <!-- Main container -->
             <div class="box">
               <a class="button is-primary" id="debugBtn">Debug</a>
+              <div class="block" id="recentBetsBlock">
+              </div>
             </div>
             <!-- Notification Banner Block -->
 
@@ -207,7 +209,7 @@
     socket.emit('debug');
   })
 
-  
+
   socket.on('debug', (data) => {
     //console.log(data);
     let p         = document.createElement('p')

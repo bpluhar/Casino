@@ -149,7 +149,6 @@
             <div class="block" id="currentSessionBlock">
 
               <div class="box" id="currentSessionBox">
-                <h1 class="title is-2">Curret Session</h1>
               </div>
 
             </div>
@@ -171,6 +170,7 @@
     }
 
     #currentSessionBox {
+      overflow: auto;
       height: 100%;
     }
 
@@ -180,14 +180,18 @@
     }
 
     .coinFalse {
-      background: #48c78e !important;
-    }
-
-    .coinTrue {
       background: #f14668 !important;
     }
 
+    .coinTrue {
+      background: #48c78e !important;
+    }
+
     body::-webkit-scrollbar{
+      display: none;
+    }
+
+    #currentSessionBox::-webkit-scrollbar{
       display: none;
     }
 
@@ -218,7 +222,7 @@
 
   const coin = document.getElementById("coin");
 
-  const recentBetsBlock = document.getElementById("recentBetsBlock");
+  const currentSessionBox = document.getElementById("currentSessionBox");
 
   const flipTurdButton = document.getElementById("flipTurdButton")
 
@@ -252,64 +256,26 @@
   // data['serverSeed']
   // data['clientSeed']
   // data['res']
+
+
+  // flipTurd received back from server, show results
   socket.on('flipTurd', (data) => {
     flipTurdButton.classList.remove('is-loading')
     if (data['res']) {
       coin.classList.add('coinTrue');
-      console.log(data['res'])
+      addToSessionBlock(data);
+      
       setTimeout(function() {
         coin.classList.remove('coinTrue')
       }, 2000);
     } else {
       coin.classList.add('coinFalse');
-      console.log(data['res'])
+      addToSessionBlock(data);
+
       setTimeout(function() {
         coin.classList.remove('coinFalse')
       }, 2000);
     }
-  })
-
-  socket.on('debug', (data) => {
-    //console.log(data);
-    let p         = document.createElement('p')
-    let rankSpan  = document.createElement('span')
-    let nameSpan  = document.createElement('span')
-    let betSpan   = document.createElement('span')
-
-    rankSpan.classList.add('has-text-weight-bold')
-
-    switch (data[0]) {
-      case "Novice":
-        rankSpan.classList.add('has-text-primary')
-        break;
-      case "Advanced":
-        rankSpan.classList.add('has-text-link')
-        break;
-      case "Pro":
-        rankSpan.classList.add('has-text-warning')
-        break;
-      case "Insane":
-        rankSpan.classList.add('has-text-success')
-        break;
-      case "God":
-        rankSpan.classList.add('has-text-danger')
-      default:
-        break;
-    }
-
-    nameSpan.classList.add('has-text-weight-bold')
-    betSpan.classList.add('has-text-weight-normal')
-
-    rankSpan.textContent  = `[${data[0]}] `;
-    nameSpan.textContent  = `${data[1]}: `
-    betSpan.textContent   = `${data[2]}`;
-
-    p.appendChild(rankSpan)
-    p.appendChild(nameSpan)
-    p.appendChild(betSpan)
-
-    recentBetsBlock.insertBefore(p, recentBetsBlock.firstChild)
-
   })
 
   walletModalCloseButton.addEventListener('click', () => {
@@ -354,6 +320,69 @@
       console.error('crypto.getRandomValues() is not supported in this browser.');
       return null; // Return null if crypto.getRandomValues is not available
     }
+  }
+
+  // data = "clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool}; 
+  function addToSessionBlock(data) {
+
+    let htmlArray = [];
+    
+
+    let p               = document.createElement('p')
+    let hr              = document.createElement('hr')
+
+    let timeSpan        = document.createElement('span')
+    let transIdSpan     = document.createElement('span')
+    let serverSeedSpan  = document.createElement('span')
+    let clientSeedSpan  = document.createElement('span')
+    let betSpan         = document.createElement('span')
+    let changeSpan      = document.createElement('span')
+
+    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+
+    if (data['res']) {
+      // True/Heads
+      timeSpan.classList.add('has-text-primary')
+      transIdSpan.classList.add('has-text-primary')
+      serverSeedSpan.classList.add('has-text-primary')
+      clientSeedSpan.classList.add('has-text-primary')
+      betSpan.classList.add('has-text-primary')
+      changeSpan.classList.add('has-text-primary')
+      changeSpan.textContent  = `+ ${Math.floor(Math.random() * 1000)}`
+    } else {
+      timeSpan.classList.add('has-text-danger')
+      transIdSpan.classList.add('has-text-danger')
+      serverSeedSpan.classList.add('has-text-danger')
+      clientSeedSpan.classList.add('has-text-danger')
+      betSpan.classList.add('has-text-danger')
+      changeSpan.classList.add('has-text-danger')
+      changeSpan.textContent  = `- ${Math.floor(Math.random() * 1000)}`
+    }
+
+    timeSpan.classList.add('button')
+    transIdSpan.classList.add('button')
+    serverSeedSpan.classList.add('button')
+    clientSeedSpan.classList.add('button')
+    betSpan.classList.add('button')
+    changeSpan.classList.add('button')
+
+    timeSpan.textContent        = time
+    transIdSpan.textContent     = "Transaction: 01234567"
+    serverSeedSpan.textContent  = data['serverSeed'].substring(0, 9)
+    clientSeedSpan.textContent  = data['clientSeed'].substring(0, 9)
+    betSpan.textContent         = `Bet: ${Math.floor(Math.random() * 1000)}`
+
+    p.appendChild(timeSpan)
+    p.appendChild(transIdSpan)
+    p.appendChild(serverSeedSpan)
+    p.appendChild(clientSeedSpan)
+    p.appendChild(betSpan)
+    p.appendChild(changeSpan)
+    p.appendChild(hr);
+
+    currentSessionBox.insertBefore(p, currentSessionBox.firstChild)
+
   }
 
 

@@ -315,26 +315,6 @@
 
   const socket = io();
 
-
-  const walletButton = document.getElementById("walletButton");
-  const walletModalCloseButton = document.getElementById("walletModalCloseButton");
-  const walletModal  = document.getElementById("walletModal");
-
-  const debugBtn = document.getElementById("debugBtn");
-
-  const coin = document.getElementById("coin");
-
-  const recentBetsBlock = document.getElementById("recentBetsBlock");
-
-  const flipTurdButton = document.getElementById("flipTurdButton")
-
-  const rngPromise = new Promise(generateClientSeed);
-
-
-
-
-
-
   const walletButton = document.getElementById("walletButton");
   const walletModalCloseButton = document.getElementById("walletModalCloseButton");
   const walletModal  = document.getElementById("walletModal");
@@ -381,7 +361,7 @@
     betSpan.classList.add('has-text-weight-normal')
 
     rankSpan.textContent  = `[${data[0]}] `;
-    nameSpan.textContent  = `${data[1]}: `
+    nameSpan.textContent  = `${data[1]}: `;
     betSpan.textContent   = `${data[2]}`;
 
     p.appendChild(rankSpan)
