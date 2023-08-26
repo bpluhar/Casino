@@ -15,6 +15,8 @@ const gradient  = require('gradient-string')
 
 const viewsFolder = "/public/views";
 
+app.use(express.static('public'))
+
 app.get('/', (req, res) => {
   clientSendFile(res, `index.html`);
 });
@@ -43,16 +45,8 @@ io.on('connection', (socket) => {
   updateConsoleView();
 
   socket.on('debug', () => {
-    // DEBUG //
-    
-    for (i = 0; i < 1000; i++) {
-      let data = [];
-      let serverSeed = safe.sha512(safe.generateServerSeed());
-      data[0] = rank[safe.generateInteger("asidh289uq4h", serverSeed, process.env.nonce, 0, 4)];
-      data[1] = name[safe.generateInteger(123, serverSeed, process.env.nonce, 0, 9)];
-      data[2] = msg + data[1];
-      socket.emit('debug', data);
-    } 
+    const x = crypto.getRandomValues(new Uint8Array(256))
+    console.log(x);
   });
 
   socket.on('flipTurd', (clientSeed) => {
@@ -64,14 +58,13 @@ io.on('connection', (socket) => {
         add winnings to houseWinnings to be displayed in
         server console accordingly.
     */
-    
-    let serverSeed = safe.sha512(safe.generateServerSeed());
-    let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
-    let handover = {"clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool};
-    setTimeout(function() {
+    for (let i = 0; i <= 2000; i++) {
+      let serverSeed = safe.sha512(safe.generateServerSeed());
+      let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
+      let handover = {"clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool};
       socket.emit('flipTurd', handover);
-    }, 100)
-    
+    }
+
     updateConsoleView();
   });
 

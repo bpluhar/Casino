@@ -1,0 +1,39 @@
+#currentSessionBlock {
+  height: calc(50% - 24px);
+}
+
+#currentSessionBox {
+  overflow: auto;
+  height: 100%;
+}
+
+#coin {
+  background: gray;
+  transition: background .2s ease-in;
+}
+
+.coinFalse {
+  background: #f14668 !important;
+}
+
+.coinTrue {
+  background: #48c78e !important;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+#currentSessionBox::-webkit-scrollbar{
+  display: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+span#rainbowTag {
+  background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
