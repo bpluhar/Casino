@@ -300,17 +300,14 @@
       const randomBytes = new Uint8Array(numBytes);
       window.crypto.getRandomValues(randomBytes);
 
-      //console.log('Random 256 bytes:', randomBytes);
-
       try {
-        // Hash the random bytes using SHA-256
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', randomBytes);
+        // Hash the random bytes using SHA-512
+        const hashBuffer = await window.crypto.subtle.digest('SHA-512', randomBytes);
 
         // Convert the hash buffer to a hexadecimal string
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 
-        //console.log('SHA-256 Hash:', hashHex);
         return hashHex; // Return the hashHex value
       } catch (error) {
         console.error('Error hashing:', error);
@@ -338,47 +335,35 @@
     let betSpan         = document.createElement('span')
     let changeSpan      = document.createElement('span')
 
-    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    htmlArray.push(timeSpan, transIdSpan, serverSeedSpan, clientSeedSpan, betSpan, changeSpan)
 
+    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
     if (data['res']) {
       // True/Heads
-      timeSpan.classList.add('has-text-primary')
-      transIdSpan.classList.add('has-text-primary')
-      serverSeedSpan.classList.add('has-text-primary')
-      clientSeedSpan.classList.add('has-text-primary')
-      betSpan.classList.add('has-text-primary')
-      changeSpan.classList.add('has-text-primary')
-      changeSpan.textContent  = `+ ${Math.floor(Math.random() * 1000)}`
-    } else {
-      timeSpan.classList.add('has-text-danger')
-      transIdSpan.classList.add('has-text-danger')
-      serverSeedSpan.classList.add('has-text-danger')
-      clientSeedSpan.classList.add('has-text-danger')
-      betSpan.classList.add('has-text-danger')
-      changeSpan.classList.add('has-text-danger')
-      changeSpan.textContent  = `- ${Math.floor(Math.random() * 1000)}`
+      htmlArray.forEach((item) => {
+        item.classList.add('has-text-primary')
+        item.classList.add('button')
+      });
+      changeSpan.textContent  = `+${Math.floor(Math.random() * 1000)}`
+    } else if (!data['res']) {
+      htmlArray.forEach((item) => {
+        item.classList.add('has-text-danger')
+        item.classList.add('button')
+      });
+      changeSpan.textContent  = `-${Math.floor(Math.random() * 1000)}`
     }
 
-    timeSpan.classList.add('button')
-    transIdSpan.classList.add('button')
-    serverSeedSpan.classList.add('button')
-    clientSeedSpan.classList.add('button')
-    betSpan.classList.add('button')
-    changeSpan.classList.add('button')
+    htmlArray[0].textContent        = time
+    htmlArray[1].textContent        = "Transaction: 01234567"
+    htmlArray[2].textContent        = data['serverSeed'].substring(0, 9)
+    htmlArray[3].textContent        = data['clientSeed'].substring(0, 9)
+    htmlArray[4].textContent        = `Bet: ${Math.floor(Math.random() * 1000)}`
 
-    timeSpan.textContent        = time
-    transIdSpan.textContent     = "Transaction: 01234567"
-    serverSeedSpan.textContent  = data['serverSeed'].substring(0, 9)
-    clientSeedSpan.textContent  = data['clientSeed'].substring(0, 9)
-    betSpan.textContent         = `Bet: ${Math.floor(Math.random() * 1000)}`
+    htmlArray.forEach((item) => {
+      p.appendChild(item)
+    })
 
-    p.appendChild(timeSpan)
-    p.appendChild(transIdSpan)
-    p.appendChild(serverSeedSpan)
-    p.appendChild(clientSeedSpan)
-    p.appendChild(betSpan)
-    p.appendChild(changeSpan)
     p.appendChild(hr);
 
     currentSessionBox.insertBefore(p, currentSessionBox.firstChild)

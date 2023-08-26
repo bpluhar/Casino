@@ -45,9 +45,9 @@ io.on('connection', (socket) => {
   socket.on('debug', () => {
     // DEBUG //
     
-    for (i = 0; i < 5000; i++) {
+    for (i = 0; i < 1000; i++) {
       let data = [];
-      let serverSeed = safe.sha256(safe.generateServerSeed());
+      let serverSeed = safe.sha512(safe.generateServerSeed());
       data[0] = rank[safe.generateInteger("asidh289uq4h", serverSeed, process.env.nonce, 0, 4)];
       data[1] = name[safe.generateInteger(123, serverSeed, process.env.nonce, 0, 9)];
       data[2] = msg + data[1];
@@ -65,12 +65,12 @@ io.on('connection', (socket) => {
         server console accordingly.
     */
     
-    let serverSeed = safe.sha256(safe.generateServerSeed());
+    let serverSeed = safe.sha512(safe.generateServerSeed());
     let bool = safe.generateBool(clientSeed, serverSeed, process.env.nonce);
     let handover = {"clientSeed": clientSeed, "serverSeed": serverSeed, "res": bool};
     setTimeout(function() {
       socket.emit('flipTurd', handover);
-    }, 333)
+    }, 100)
     
     updateConsoleView();
   });
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(process.env.port, () => {
-  //console.clear();
+  updateConsoleView();
 });
 
 ///////////////
@@ -105,12 +105,13 @@ server.listen(process.env.port, () => {
     in a variable for use of displaying in the 
     server console window. 
 */
+
 function updateConsoleView() {
   console.clear();
   figlet.text(
-    "POOP CASINO",
+    "Passion",
     {
-      font: "big",
+      font: "colossal",
       horizontalLayout: "default",
       verticalLayout: "default",
       width: 80,
@@ -127,10 +128,10 @@ function updateConsoleView() {
   );
 
   setTimeout(function() {
-    console.log(gradient.vice(`   > Connected Users: ${io.engine.clientsCount}`));
-    console.log(gradient.vice(`   > House Winnings: ${houseWinnings}`));
-    console.log(gradient.vice(`   > Player Winnings: ${playerWinnings}`));
-  }, 250)
+    console.log(gradient.atlas(`   > Connected Users: ${io.engine.clientsCount}`));
+    //console.log(gradient.atlas(`   > House Winnings: ${houseWinnings}`));
+    //console.log(gradient.atlas(`   > Player Winnings: ${playerWinnings}`));
+  }, 25)
 }
 
 function ifThrow(error) {
