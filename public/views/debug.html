@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POOP CASINO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+
+<body>
+
+  <div class="modal" id="walletModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Poop Wallet</p>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-info" id="walletModalCloseButton">Close</button>
+      </footer>
+    </div>
+  </div>
+
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/home">
+        <img src="https://i.imgur.com/V2JFAbG.png" width="100" height="120">
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/home">
+          Home
+        </a>
+
+        <a class="navbar-item">
+          Account
+        </a>
+
+        <div class="level-item">
+
+          <button class="button is-info" id="debugBetTrackerButton">Test Chat</button>
+
+        </div>
+
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="section" style="height: calc(100% - 56px); padding: .5rem 1.5rem">      
+      <div class="columns is-mobile" style="height: 100%;">
+
+        <!-- Left 1/4 of container -->
+        <div class="column is-2">
+          <div class="box" style="height: 100%">
+
+            <aside class="menu">
+
+              <p class="menu-label">Games</p>
+              <ul class="menu-list">
+                <li><a href="/blackjack">Blackjack</a></li>
+                <li><a href="/crash">Crash</a></li>
+                <li><a href="/hilo">Hi/Lo</a></li>
+                <li><a href="/coinflip">Coin Flip</a></li>
+              </ul>
+
+              <p class="menu-label">Stats</p>
+              <ul class="menu-list">
+                <li><a href="/stats">Personal Stats</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+              </ul>
+
+              <p class="menu-label">Helpers</p>
+              <ul class="menu-list">
+                <li><a href="/debug">Debug & Tests</a></li>
+              </ul>
+
+            </aside>
+
+          </div>
+        </div>
+
+
+        <div class="column">
+          <!--<div class="box" style="height: 100%">-->
+            
+            <!-- Main container -->
+            <div class="box">
+              <a class="button is-primary" id="debugBtn">Debug</a>
+              <div class="block" id="recentBetsBlock">
+              </div>
+            </div>
+            <!-- Notification Banner Block -->
+
+            <!-- Top Stats Block -->
+            
+
+            <!-- Current Session Block Box -->
+            
+
+          <!--</div>-->
+
+        </div>
+
+      </div>
+
+  </section>
+
+
+
+  <style>
+
+    #currentSessionBlock {
+      height: calc(50% - 24px);
+    }
+
+    #currentSessionBox {
+      height: 100%;
+    }
+
+    #coin {
+      background: gray;
+      transition: background .2s ease-in;
+    }
+
+    .coinFalse {
+      background: #48c78e !important;
+    }
+
+    .coinTrue {
+      background: #f14668 !important;
+    }
+
+    body::-webkit-scrollbar{
+      display: none;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    span#rainbowTag {
+      background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+  </style>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+  //const crypto = crypto();
+
+  const socket = io();
+
+  const walletButton = document.getElementById("walletButton");
+  const walletModalCloseButton = document.getElementById("walletModalCloseButton");
+  const walletModal  = document.getElementById("walletModal");
+
+  const debugBtn = document.getElementById("debugBtn");
+
+  const coin = document.getElementById("coin");
+
+  const recentBetsBlock = document.getElementById("recentBetsBlock");
+
+  const flipTurdButton = document.getElementById("flipTurdButton")
+
+  const rngPromise = new Promise(generateClientSeed);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+  });
+
+  debugBtn.addEventListener('click', () => {
+    socket.emit('debug');
+  })
+
+
+  socket.on('debug', (data) => {
+    //console.log(data);
+    let p         = document.createElement('p')
+    let rankSpan  = document.createElement('span')
+    let nameSpan  = document.createElement('span')
+    let betSpan   = document.createElement('span')
+
+    rankSpan.classList.add('has-text-weight-bold')
+
+    switch (data[0]) {
+      case "Novice":
+        rankSpan.classList.add('has-text-primary')
+        break;
+      case "Advanced":
+        rankSpan.classList.add('has-text-link')
+        break;
+      case "Pro":
+        rankSpan.classList.add('has-text-warning')
+        break;
+      case "Insane":
+        rankSpan.classList.add('has-text-success')
+        break;
+      case "God":
+        rankSpan.classList.add('has-text-danger')
+      default:
+        break;
+    }
+
+    nameSpan.classList.add('has-text-weight-bold')
+    betSpan.classList.add('has-text-weight-normal')
+
+    rankSpan.textContent  = `[${data[0]}] `;
+    nameSpan.textContent  = `${data[1]}: `
+    betSpan.textContent   = `${data[2]}`;
+
+    p.appendChild(rankSpan)
+    p.appendChild(nameSpan)
+    p.appendChild(betSpan)
+
+    recentBetsBlock.insertBefore(p, recentBetsBlock.firstChild)
+
+  })
+
+  walletModalCloseButton.addEventListener('click', () => {
+    walletModal.classList.remove('is-active');
+  })
+
+  socket.on('connect', () => {
+    console.log('Connected!')
+  })
+
+  socket.on('disconnect', () => {
+    console.log('Lost Connection!')
+  })
+
+  ///////////////
+  // Functions //
+  ///////////////
+
+  async function generateClientSeed() {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const numBytes = 256;
+      const randomBytes = new Uint8Array(numBytes);
+      window.crypto.getRandomValues(randomBytes);
+
+      //console.log('Random 256 bytes:', randomBytes);
+
+      try {
+        // Hash the random bytes using SHA-256
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', randomBytes);
+
+        // Convert the hash buffer to a hexadecimal string
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+        //console.log('SHA-256 Hash:', hashHex);
+        return hashHex; // Return the hashHex value
+      } catch (error) {
+        console.error('Error hashing:', error);
+        return null; // Return null if there's an error
+      }
+    } else {
+      console.error('crypto.getRandomValues() is not supported in this browser.');
+      return null; // Return null if crypto.getRandomValues is not available
+    }
+  }
+
+
+
+  </script>
+</body>
+
+</html>
+
